@@ -1,6 +1,15 @@
 @GymManagement.Api_HostAddress = http://localhost:5026
+@adminId=2150e333-8fdc-42a3-9474-1a3956d46de8
 
-GET {{GymManagement.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{GymManagement.Api_HostAddress}}/api/subscriptions
+Content-Type: application/json
 
-###
+{
+    "SubscriptionType": "Free",
+    "AdminId": "{{adminId}}"
+}
+
+# {
+#     "Id": "{{adminId}}"
+#     "SubscriptionType": "Free", // "Starter", "Pro"
+# }
