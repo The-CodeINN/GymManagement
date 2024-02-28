@@ -1,3 +1,7 @@
+using GymManagement.Application;
+using GymManagement.Infrastructure;
+using GymManagement.Application.Services;
+
 namespace GymManagement.Api
 {
     public class Program
@@ -9,6 +13,11 @@ namespace GymManagement.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services
+                .AddApplication()
+                .AddInfrastructure();
+
 
             var app = builder.Build();
 
