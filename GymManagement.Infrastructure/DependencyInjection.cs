@@ -8,6 +8,6 @@ namespace GymManagement.Infrastructure
         {
 
             return services;
-        }
+        }zz
     }
 }

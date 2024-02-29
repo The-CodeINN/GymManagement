@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagement.Application.Services
 {
-    public class SubscriptionsService : ISubscriptionService
+    public class SubscriptionsWriteService : ISubscriptionWriteService
     {
         public Guid CreateSubscription(string subscriptionType, Guid adminId)
         {

@@ -12,7 +12,7 @@ namespace GymManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<ISubscriptionService, SubscriptionsService>();
+            services.AddScoped<ISubscriptionService, SubscriptionsWriteService>();
 
             return services;
         }
