@@ -1,6 +1,5 @@
 using GymManagement.Application;
 using GymManagement.Infrastructure;
-using GymManagement.Application.Services;
 
 namespace GymManagement.Api
 {

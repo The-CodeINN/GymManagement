@@ -1,5 +1,4 @@
-﻿using GymManagement.Application.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,10 @@ namespace GymManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<ISubscriptionService, SubscriptionsWriteService>();
+            services.AddMediatR(options =>
+            {
+                options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
+            });
 
             return services;
         }

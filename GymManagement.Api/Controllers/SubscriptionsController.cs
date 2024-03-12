@@ -1,5 +1,6 @@
-﻿using GymManagement.Application.Services;
+﻿using GymManagement.Application.Subscriptions.Commands.CreateSubscription;
 using GymManagement.Contracts.Subscriptions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagement.Api.Controllers
@@ -9,24 +10,37 @@ namespace GymManagement.Api.Controllers
 
     public class SubscriptionsController : ControllerBase
     {
-        private readonly ISubscriptionService _subscriptionService;
+        //private readonly IMediator _mediator;
+        private readonly ISender _mediator;
 
-        public SubscriptionsController(ISubscriptionService subscriptionService)
+        public SubscriptionsController(ISender mediator)
         {
-            _subscriptionService = subscriptionService;
+            _mediator = mediator; 
         }
 
         [HttpPost]
-        public IActionResult CreateSubscription(CreateSubcriptionRequest request)
+        public async Task<IActionResult> CreateSubscription(CreateSubcriptionRequest request)
         {
-            var subscriptionId = _subscriptionService.CreateSubscription(
-                    request.SubscriptionType.ToString(),
-                    request.AdminId
-                );
+            var command = new CreateSubcriptionCommand(
+                request.SubscriptionType.ToString(), 
+                request.AdminId);
 
-            var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
+            var createSubscriptionResult = await _mediator.Send(command);
 
-            return Ok(response);
+            return createSubscriptionResult.MatchFirst(
+                guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)), 
+                error => Problem());
+
+            //if (createSubscriptionResult.IsError)
+            //{
+            //    return Problem();
+            //}
+
+            //var response = new SubscriptionResponse(
+            //    createSubscriptionResult.Value, 
+            //    request.SubscriptionType);
+
+            //return Ok(response);
         }
     }
 }
